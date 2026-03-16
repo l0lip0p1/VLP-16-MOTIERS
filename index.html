@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Potree Viewer</title>
+
+<link rel="stylesheet" href="build/potree/potree.css">
+
+<style>
+html, body{
+margin:0;
+height:100%;
+overflow:hidden;
+}
+
+#potree_render_area{
+width:100%;
+height:100%;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="potree_render_area"></div>
+
+<script src="libs/jquery/jquery-3.1.1.min.js"></script>
+<script src="libs/proj4/proj4.js"></script>
+<script src="libs/tween/tween.min.js"></script>
+<script src="libs/d3/d3.js"></script>
+
+<script src="build/potree/potree.js"></script>
+
+<script>
+
+const viewer = new Potree.Viewer(
+document.getElementById("potree_render_area")
+);
+
+viewer.setEDLEnabled(true);
+viewer.setFOV(60);
+viewer.setPointBudget(1000000);
+
+Potree.loadPointCloud(
+"https://pub-c74bf095214b4c7e879ef920e0534561.r2.dev/pointclouds/moncloud/metadata.json",
+"moncloud"
+).then(e => {
+
+viewer.scene.addPointCloud(e.pointcloud);
+viewer.fitToScreen();
+
+});
+
+</script>
+
+</body>
+</html>
